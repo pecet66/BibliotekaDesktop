@@ -1,0 +1,16 @@
+#IDEs
+#IntelliJ Idea
+.idea
+*.iml
+node_modules/
+target/
+npm-debug.log
+
+
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+.nb-gradle/
