@@ -86,7 +86,7 @@ public class Database {
         Egzemplarz egz= new Egzemplarz();
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "SELECT * FROM .. WHERE kod_ean= ? ;");
+                    "SELECT pr_wyszukaj_egzemplarz {'','?','','','','','','','' ;");
             prepStmt.setString(1, sz_kod_ean);
             prepStmt.execute();
             ResultSet result = prepStmt.getResultSet();
@@ -108,22 +108,45 @@ public class Database {
         } catch (SQLException e) {
             //log.error("Blad przy select wszystkich egz " + e.getMessage());
             //e.printStackTrace();
+            System.out.println(e.toString());
             return null;
         }
         return egz;
     }
     
-    public List<Egzemplarz> selectAllEgzemplarz() {
-        List<Egzemplarz> allEgzemplarz = new LinkedList<Egzemplarz>();
+    public List<Egzemplarz> selectEgzemplarzList(
+            String sz_id_dziela,
+            String sz_kod_ean,
+            String sz_tytul,
+            String sz_autor,
+            String sz_typ,
+            String sz_gatunek,
+            String sz_tagi,
+            String sz_jezyk,
+            String sz_isbn) {
+        List<Egzemplarz> EgzemplarzList = new LinkedList<Egzemplarz>();
+        System.out.println("Dziala select all egzemparz ");
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "SELECT * FROM ;");
+                    "SELECT pr_wyszukaj_egzemplarz {'?','?','?','?','?','?','?','?','?' ;");
+            prepStmt.setString(1, sz_id_dziela);
+            prepStmt.setString(2, sz_kod_ean);
+            prepStmt.setString(3, sz_tytul);
+            prepStmt.setString(4, sz_autor);
+            prepStmt.setString(5, sz_typ);
+            prepStmt.setString(6, sz_gatunek);
+            prepStmt.setString(7, sz_tagi);
+            prepStmt.setString(8, sz_jezyk);
+            prepStmt.setString(9, sz_isbn);
+
             prepStmt.execute();
             ResultSet result = prepStmt.getResultSet();
-            String id_dziela,ean,tytul,autor,typ,gatunek,tagi,jezyk,isbn;
+            String id_dziela,kod_ean,tytul,autor,typ,gatunek,tagi,jezyk,isbn;
+            
+            System.out.println("Dziala select all egzemparz 3");
             while(result.next()) {
                 id_dziela = result.getString("id_dziela");
-                ean = result.getString("ean");
+                kod_ean = result.getString("kod_ean");
                 tytul = result.getString("tytul");
                 autor = result.getString("autor");
                 typ = result.getString("typ");
@@ -131,16 +154,20 @@ public class Database {
                 tagi= result.getString("tagi");
                 jezyk= result.getString("jezyk");
                 isbn= result.getString("isbn");
-                
-                allEgzemplarz.add(new Egzemplarz(id_dziela,ean,tytul,autor,typ,gatunek,tagi,jezyk,isbn));
+                System.out.println("Egzemplarz{" + "id_dziela=" + id_dziela + ", kod_ean=" + kod_ean + ", tytul=" + tytul + ", autor=" + autor + ", typ=" + typ + ", gatunek=" + gatunek + ", tagi=" + tagi + ", jezyk=" + jezyk + ", isbn=" + isbn );
+                EgzemplarzList.add(new Egzemplarz(id_dziela,kod_ean,tytul,autor,typ,gatunek,tagi,jezyk,isbn));
+                System.out.println("Dziala select all egzemparz 3");
             }
             //log.debug("Select egz list");
         } catch (SQLException e) {
             //log.error("Blad przy select wszystkich egz " + e.getMessage());
             //e.printStackTrace();
+            System.out.println(e.toString() );
             return null;
         }
-        return allEgzemplarz;
+        System.out.println("Dziala select all egzemparz 4");
+
+        return EgzemplarzList;
     }
     //insert
 

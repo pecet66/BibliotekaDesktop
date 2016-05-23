@@ -42,4 +42,10 @@ public class Egzemplarz {
         this.tagi = null;
         this.jezyk = null;
         this.isbn = null;    }
+
+    @Override
+    public String toString() {
+        return "Egzemplarz{" + "id_dziela=" + id_dziela + ", kod_ean=" + kod_ean + ", tytul=" + tytul + ", autor=" + autor + ", typ=" + typ + ", gatunek=" + gatunek + ", tagi=" + tagi + ", jezyk=" + jezyk + ", isbn=" + isbn + '}';
+    }
+    
 }
